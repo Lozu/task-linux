@@ -1,0 +1,100 @@
+From 849290246a7813b6d265d8e9d36b4b0e87b53cd8 Mon Sep 17 00:00:00 2001
+From: Vladimir Azarov <vladimirazmich@gmail.com>
+Date: Fri, 3 Oct 2025 00:26:24 +0200
+Subject: [PATCH] Task 2: /kernelcare/jiffies debugfs file
+
+Implement first part of task 2: provide a read-only debugfs file -
+/kernelcare/jiffies, which contains current value of jiffies kernel
+timer. To compile run "make -C sample/task".
+
+This patch depends on 0001-Task-1.patch
+
+Signed-off-by: Vladimir Azarov <vladimirazmich@gmail.com>
+---
+ samples/task/Makefile |  4 ++--
+ samples/task/task.c   | 45 +++++++++++++++++++++++++++++++++++++------
+ 2 files changed, 41 insertions(+), 8 deletions(-)
+
+diff --git a/samples/task/Makefile b/samples/task/Makefile
+index 2e8f0fa453c2..ab3d3a3f66d1 100644
+--- a/samples/task/Makefile
++++ b/samples/task/Makefile
+@@ -12,9 +12,9 @@ clean:
+ 
+ else
+ 
+-CONFIG_TASK1 ?= m
++CONFIG_TASK2 ?= m
+ 
+ ccflags-y += -DDEBUG
+-obj-$(CONFIG_TASK1) := task.o
++obj-$(CONFIG_TASK2) := task.o
+ 
+ endif
+diff --git a/samples/task/task.c b/samples/task/task.c
+index 54e5d25cce5f..9c33cd62b50b 100644
+--- a/samples/task/task.c
++++ b/samples/task/task.c
+@@ -4,20 +4,53 @@
+ 
+ #include <linux/init.h>
+ #include <linux/printk.h>
++#include <linux/debugfs.h>
++#include <linux/jiffies.h>
+ #include <linux/module.h>
+ 
+-static int __init task1_init(void)
++static struct dentry *debugfs_root;
++static struct dentry *jiffies_file;
++
++static int show_jiffies(struct seq_file *s, void *)
++{
++	seq_printf(s, "%llu\n", get_jiffies_64());
++	return 0;
++}
++
++static int jiffies_open(struct inode *inode, struct file *file)
++{
++	return single_open(file, show_jiffies, NULL);
++}
++
++static const struct file_operations jiffies_ops = {
++	.owner = THIS_MODULE,
++	.open = jiffies_open,
++	.read = seq_read,
++	.llseek = seq_lseek,
++	.release = single_release
++};
++
++static void make_fs(void)
++{
++	debugfs_root = debugfs_create_dir("kernelcare", NULL);
++	jiffies_file = debugfs_create_file("jiffies", 0444, debugfs_root,
++					   NULL, &jiffies_ops);
++}
++
++static int __init task2_init(void)
+ {
+-	pr_debug("Hello, KernelCare!\n");
++	pr_debug("Loading\n");
++	make_fs();
+ 	return 0;
+ }
+ 
+-static void __exit task1_exit(void)
++static void __exit task2_exit(void)
+ {
+ 	pr_debug("Unloading\n");
++	debugfs_remove(debugfs_root);
+ }
+ 
+-module_init(task1_init);
+-module_exit(task1_exit);
++module_init(task2_init);
++module_exit(task2_exit);
+ MODULE_LICENSE("GPL");
+-MODULE_DESCRIPTION("Task 1");
++MODULE_DESCRIPTION("Task 2");
+-- 
+2.44.0
+

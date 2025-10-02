@@ -9,6 +9,8 @@ Implement task3 from internship assignment. Compile the module with
 The module sample/task/task.ko does several operations involving
 linked lists.
 
+This patch depends on 0001-Task-1.patch
+
 Signed-off-by: Vladimir Azarov <vladimirazmich@gmail.com>
 ---
  samples/task/Makefile |   4 +-
