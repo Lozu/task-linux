@@ -12,9 +12,9 @@ clean:
 
 else
 
-CONFIG_TASK1 ?= m
+CONFIG_TASK2 ?= m
 
 ccflags-y += -DDEBUG
-obj-$(CONFIG_TASK1) := task.o
+obj-$(CONFIG_TASK2) := task.o
 
 endif
