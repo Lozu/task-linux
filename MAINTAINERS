@@ -22506,6 +22506,12 @@ S:	Supported
 F:	Documentation/admin-guide/LSM/SafeSetID.rst
 F:	security/safesetid/
 
+SAMPLE TASK
+M:	Vladimir Azarov <vladimirazmich@gmail.com>
+S:	Maintained
+T:	git https://github.com/Lozu/task-linux
+F:	sample/task/
+
 SAMSUNG AUDIO (ASoC) DRIVERS
 M:	Sylwester Nawrocki <s.nawrocki@samsung.com>
 L:	linux-sound@vger.kernel.org
