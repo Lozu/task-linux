@@ -39,7 +39,7 @@
 *.mod.c
 *.o
 *.o.*
-*.patch
+#*.patch
 *.pyc
 *.rmeta
 *.rpm
@@ -128,7 +128,7 @@ modules.order
 patches-*
 
 # quilt's files
-patches
+#patches (NOTE: we currently do not use quilt)
 series
 
 # ctags files

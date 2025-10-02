@@ -1,0 +1,77 @@
+From 8aa0d5e41bc914c23aed125bf1fee5dc6a936f48 Mon Sep 17 00:00:00 2001
+From: Vladimir Azarov <vladimirazmich@gmail.com>
+Date: Thu, 2 Oct 2025 21:53:01 +0200
+Subject: [PATCH] Task 1
+
+Implement task1 from internship test assignment. To compile run
+"make -C samples/task".
+
+Module samples/task/task.ko prints "Hello, KernelCare!" to kernel log on
+initialization. It can also be successfully unloaded.
+
+Signed-off-by: Vladimir Azarov <vladimirazmich@gmail.com>
+---
+ samples/task/Makefile | 20 ++++++++++++++++++++
+ samples/task/task.c   | 23 +++++++++++++++++++++++
+ 2 files changed, 43 insertions(+)
+ create mode 100644 samples/task/Makefile
+ create mode 100644 samples/task/task.c
+
+diff --git a/samples/task/Makefile b/samples/task/Makefile
+new file mode 100644
+index 000000000000..2e8f0fa453c2
+--- /dev/null
++++ b/samples/task/Makefile
+@@ -0,0 +1,20 @@
++ifeq ($(KERNELRELEASE),)
++
++KDIR ?= ../..
++
++prefix := $(MAKE) -C $(KDIR) M=$$PWD
++
++default:
++	$(prefix)
++
++clean:
++	$(prefix) $@
++
++else
++
++CONFIG_TASK1 ?= m
++
++ccflags-y += -DDEBUG
++obj-$(CONFIG_TASK1) := task.o
++
++endif
+diff --git a/samples/task/task.c b/samples/task/task.c
+new file mode 100644
+index 000000000000..54e5d25cce5f
+--- /dev/null
++++ b/samples/task/task.c
+@@ -0,0 +1,23 @@
++// SPDX-License-Identifier: GPL-2.0
++
++#define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
++
++#include <linux/init.h>
++#include <linux/printk.h>
++#include <linux/module.h>
++
++static int __init task1_init(void)
++{
++	pr_debug("Hello, KernelCare!\n");
++	return 0;
++}
++
++static void __exit task1_exit(void)
++{
++	pr_debug("Unloading\n");
++}
++
++module_init(task1_init);
++module_exit(task1_exit);
++MODULE_LICENSE("GPL");
++MODULE_DESCRIPTION("Task 1");
+--
+2.44.0
+
