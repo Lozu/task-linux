@@ -1,5 +1,6 @@
 From 8aa0d5e41bc914c23aed125bf1fee5dc6a936f48 Mon Sep 17 00:00:00 2001
 From: Vladimir Azarov <vladimirazmich@gmail.com>
+To: Vladimir Azarov <vladimirazmich@gmail.com>
 Date: Thu, 2 Oct 2025 21:53:01 +0200
 Subject: [PATCH] Task 1
 
@@ -72,6 +73,6 @@ index 000000000000..54e5d25cce5f
 +module_exit(task1_exit);
 +MODULE_LICENSE("GPL");
 +MODULE_DESCRIPTION("Task 1");
---
+-- 
 2.44.0
 
