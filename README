@@ -6,7 +6,7 @@ created to complete the test task for Kernel Developer internship.
         Information about patches
 
 All assignments had to be submitted as patches. All four patches (task
-2 is partitioned into two parts) are located in master branch,
+2 is partitioned into two parts) are located in main branch,
 /tasks/ directory. They were produced by 'git format-patch', so
 one can apply them using 'git am' command. All patches except for the
 first one pass 'scripts/checkpatch.pl --strict --codespell'. For the
