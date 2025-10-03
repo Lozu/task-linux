@@ -1,3 +1,119 @@
+        Intro
+
+This repo is a fork of git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+created to complete the test task for Kernel Developer internship.
+
+        Information about patches
+
+All assignments had to be submitted as patches. All four patches (task
+2 is partitioned into two parts) are located in master branch,
+/tasks/ directory. They were produced by 'git format-patch', so
+one can apply them using 'git am' command. All patches except for the
+first one pass 'scripts/checkpatch.pl --strict --codespell'. For the
+first patch, checkpatch.pl issues a warning "does MAINTAINERS need updating".
+
+Please note that all patches except for task-1 patch depend on other
+patches; thus, most patches have to be applied in a specific order.
+This is a requirement of the assignment. Dependent patches contain the
+line "This patch depends on <patch-name>" in their description.
+
+Since patches have to be relative, different branches were used for
+different tasks.
+
+        How was the code tested?
+
+No virtual machine was used. I compiled the kernel using e1b1d03ceec3
+(Oct 2) commit and my custom .config file, and instructed my bootloader
+to boot using this development kernel. All development and testing were
+done from the system compiled using that commit.
+
+        Task 1 ("Hello, KernelCare!") [branch task1]
+
+Instructions to apply patches:
+
+$ git am <patch_src>/0001-Task-1.patch
+
+Proof that work is done on real hardware and the latest Linux kernel is
+used: https://intermediate-node.net/unsorted/on-real-machine.mp4
+
+Video is hosted on my personal website. I did not want to publish it on
+github.
+
+        Task 2.1 (debugfs/jiffies) [branch task2-p1]
+
+Instructions to apply patches:
+
+$ git am <patch_src>/0001-Task-1.patch # work is based on task 1
+$ git am <patch_src>/task-patches/0001-Task-2-kernelcare-jiffies-debugfs-file.patch
+
+Proof that it works:
+
+$ cd /sys/kernel/debug/kernelcare
+$ cat jiffies && sleep 10 && cat jiffies
+4295327341
+4295330343
+$ zgrep HZ_300 /proc/config.gz
+CONFIG_HZ_300=y
+
+The difference between jiffies is ~3000. On my system, the timer frequency
+is 300 HZ. We sleep for 10 seconds between jiffies, so theoretical
+difference should be 300*10 = 3000 ticks. Observed difference confirms
+this.
+
+        Task 2.2 (debugfs/data) [branch task2]
+
+Instructions to apply patches:
+
+$ git am <patch_src>/0001-Task-1.patch # work is based on task 1
+$ git am <patch_src>/task-patches/0001-Task-2-kernelcare-jiffies-debugfs-file.patch
+$ git am <patch_src>/task-patches/0001-Task-2-kernelcare-data-debugfs-file.patch
+
+Test:
+
+Let's run the following shell script:
+<script start>
+#!/bin/sh -e
+
+echo "ini" > data
+
+cat data&
+echo 'xyz' > data&
+cat data&
+echo 'abc' > data&
+cat data&
+echo '123' > data&
+cat data&
+echo '456' > data&
+cat data&
+<script end>
+
+Our module logs all read/write operations. Besides that, let's compile the
+module with -DSLOW_OPS (by default it is commented out), which adds a
+2-second delay for every read or write. The log can be found in
+tasks/data-log.
+
+All read/write operations receive a unique 32-bit id, and every log entry
+comes with this id for purpose of easier identification. The highest 16
+bits in read ids and lowest 16 bits in write ids are always zero. This is
+needed for easier distinction between two types of operations. Looking at
+task-patches/data-log file, we see that write operations are not
+interleaved with any other operations. Reads, in turn, are interleaved
+with other reads, but not with writes.
+
+        Task 3 (Linked lists) [branch task3]
+
+Instructions to apply patches:
+
+$ git am <patch_src>/0001-Task-1.patch # work is based on task 1
+$ git am <patch_src>/0001-Task-3.patch
+
+Notes:
+
+I believe that all function return values are checked.
+
+==========================================================================
+
+
 Linux kernel
 ============
 

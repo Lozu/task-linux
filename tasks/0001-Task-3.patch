@@ -1,4 +1,4 @@
-From 167af3d3adea70a4ec08b4abe6d3a84bb5bc4fc8 Mon Sep 17 00:00:00 2001
+From 94faac40833f067606864994afe404171859fb83 Mon Sep 17 00:00:00 2001
 From: Vladimir Azarov <vladimirazmich@gmail.com>
 Date: Thu, 2 Oct 2025 22:52:13 +0200
 Subject: [PATCH] Task 3
@@ -14,8 +14,8 @@ This patch depends on 0001-Task-1.patch
 Signed-off-by: Vladimir Azarov <vladimirazmich@gmail.com>
 ---
  samples/task/Makefile |   4 +-
- samples/task/task.c   | 114 +++++++++++++++++++++++++++++++++++++++---
- 2 files changed, 110 insertions(+), 8 deletions(-)
+ samples/task/task.c   | 119 +++++++++++++++++++++++++++++++++++++++---
+ 2 files changed, 115 insertions(+), 8 deletions(-)
 
 diff --git a/samples/task/Makefile b/samples/task/Makefile
 index 2e8f0fa453c2..31ad173f67f2 100644
@@ -34,10 +34,10 @@ index 2e8f0fa453c2..31ad173f67f2 100644
  
  endif
 diff --git a/samples/task/task.c b/samples/task/task.c
-index 54e5d25cce5f..b1075f9c24c1 100644
+index 54e5d25cce5f..28f1f80c9534 100644
 --- a/samples/task/task.c
 +++ b/samples/task/task.c
-@@ -3,21 +3,123 @@
+@@ -3,21 +3,128 @@
  #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
  
  #include <linux/init.h>
@@ -94,8 +94,7 @@ index 54e5d25cce5f..b1075f9c24c1 100644
 +}
 +
 +static int identity_hire(int id)
- {
--	pr_debug("Hello, KernelCare!\n");
++{
 +	struct identity *tmp = identity_find(id);
 +
 +	if (!tmp)
@@ -117,7 +116,8 @@ index 54e5d25cce5f..b1075f9c24c1 100644
 +}
 +
 +static int __init task3_init(void)
-+{
+ {
+-	pr_debug("Hello, KernelCare!\n");
 +	struct identity *temp;
 +	int ret;
 +
@@ -151,6 +151,11 @@ index 54e5d25cce5f..b1075f9c24c1 100644
 +
 +	identity_destroy(2);
 +	identity_destroy(1);
++
++	if (!list_empty(&identities)) {
++		pr_err("identity list is not empty, even though it should be\n");
++		return -EINVAL;
++	}
  	return 0;
  }
  

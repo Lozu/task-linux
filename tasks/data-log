@@ -1,0 +1,35 @@
+[  144.453916] task [575f0000]: data write: locked
+[  144.454006] task [575f0000]: write (4, 0): 4
+[  146.541499] task [575f0000]: size = 4
+[  146.541588] task [575f0000]: data write: unlocked
+[  146.542423] task [cdc00000]: data write: locked
+[  146.542512] task [cdc00000]: write (4, 0): 4
+[  148.674963] task [cdc00000]: size = 4
+[  148.675055] task [cdc00000]: data write: unlocked
+[  148.675174] task [36dd0000]: data write: locked
+[  148.675264] task [36dd0000]: write (4, 0): 4
+[  150.808217] task [36dd0000]: size = 4
+[  150.808311] task [36dd0000]: data write: unlocked
+[  150.808410] task [00000b29]: data read: locked
+[  150.808421] task [00000b45]: data read: locked
+[  150.808455] task [00009421]: data read: locked
+[  150.808457] task [00005f95]: data read: locked
+[  150.808461] task [0000f908]: data read: locked
+[  152.941539] task [00000b29]: read (131072, 0): 0
+[  152.941571] task [00005f95]: read (131072, 0): 0
+[  152.941574] task [00009421]: read (131072, 0): 0
+[  152.941574] task [0000f908]: read (131072, 0): 0
+[  152.941576] task [00000b45]: read (131072, 0): 0
+[  152.941590] task [0000f908]: data read: unlock
+[  152.941591] task [00000b45]: data read: unlock
+[  152.941591] task [00009421]: data read: unlock
+[  152.943343] task [00000b29]: data read: unlock
+[  152.944985] task [00005f95]: data read: unlock
+[  152.945009] task [87620000]: data write: locked
+[  152.945017] task [87620000]: write (4, 0): 4
+[  155.074848] task [87620000]: size = 4
+[  155.075910] task [87620000]: data write: unlocked
+[  155.075978] task [69270000]: data write: locked
+[  155.077962] task [69270000]: write (4, 0): 4
+[  157.208127] task [69270000]: size = 4
+[  157.209110] task [69270000]: data write: unlocked

@@ -1,4 +1,4 @@
-From 336157bb52697d0c56ca2e847ee95197cd672bc1 Mon Sep 17 00:00:00 2001
+From 9210dcebff27c723f03ae086d9cd4d1d246bac31 Mon Sep 17 00:00:00 2001
 From: Vladimir Azarov <vladimirazmich@gmail.com>
 Date: Fri, 3 Oct 2025 01:04:00 +0200
 Subject: [PATCH] Task 2: /kernelcare/data debugfs file
@@ -12,24 +12,24 @@ This patch depends on 0001-Task-2-kernelcare-jiffies-debugfs-file.patch
 Signed-off-by: Vladimir Azarov <vladimirazmich@gmail.com>
 ---
  samples/task/Makefile |   2 +
- samples/task/task.c   | 106 +++++++++++++++++++++++++++++++++++++++++-
- 2 files changed, 106 insertions(+), 2 deletions(-)
+ samples/task/task.c   | 104 +++++++++++++++++++++++++++++++++++++++++-
+ 2 files changed, 104 insertions(+), 2 deletions(-)
 
 diff --git a/samples/task/Makefile b/samples/task/Makefile
-index ab3d3a3f66d1..27d7a73aca11 100644
+index ab3d3a3f66d1..692abb1cd30a 100644
 --- a/samples/task/Makefile
 +++ b/samples/task/Makefile
 @@ -15,6 +15,8 @@ else
  CONFIG_TASK2 ?= m
  
  ccflags-y += -DDEBUG
-+# ccflags-y += -DSLOW_OPS
++#ccflags-y += -DSLOW_OPS
 +
  obj-$(CONFIG_TASK2) := task.o
  
  endif
 diff --git a/samples/task/task.c b/samples/task/task.c
-index 9c33cd62b50b..61ba4c4d9174 100644
+index 9c33cd62b50b..c1b78c4c37dd 100644
 --- a/samples/task/task.c
 +++ b/samples/task/task.c
 @@ -1,15 +1,25 @@
@@ -48,7 +48,7 @@ index 9c33cd62b50b..61ba4c4d9174 100644
  #include <linux/module.h>
  
 +#undef pr_fmt
-+#define pr_fmt(fmt) KBUILD_MODNAME " [%x]: " fmt, hash
++#define pr_fmt(fmt) KBUILD_MODNAME " [%08x]: " fmt, hash
 +
 +#define DATA_FILE_LIMIT BIT(CONFIG_PAGE_SHIFT)
 +
@@ -60,7 +60,7 @@ index 9c33cd62b50b..61ba4c4d9174 100644
  
  static int show_jiffies(struct seq_file *s, void *)
  {
-@@ -22,6 +32,84 @@ static int jiffies_open(struct inode *inode, struct file *file)
+@@ -22,6 +32,82 @@ static int jiffies_open(struct inode *inode, struct file *file)
  	return single_open(file, show_jiffies, NULL);
  }
  
@@ -76,10 +76,9 @@ index 9c33cd62b50b..61ba4c4d9174 100644
 +			 size_t size, loff_t *ppos)
 +{
 +	ssize_t ret;
-+	u32 hash = get_random_u32();
++	u32 hash = get_random_u16();
 +	loff_t pos = *ppos;
 +
-+	pr_debug("data read: try lock\n");
 +	down_read(&file->f_inode->i_rwsem);
 +	pr_debug("data read: locked\n");
 +
@@ -103,11 +102,10 @@ index 9c33cd62b50b..61ba4c4d9174 100644
 +			  size_t size, loff_t *ppos)
 +{
 +	ssize_t ret;
-+	u32 hash = get_random_u32();
++	u32 hash = get_random_u16() << 16;
 +	loff_t file_size;
 +	loff_t pos = *ppos;
 +
-+	pr_debug("data write: try lock\n");
 +	down_write(&file->f_inode->i_rwsem);
 +	pr_debug("data write: locked\n");
 +
@@ -145,7 +143,7 @@ index 9c33cd62b50b..61ba4c4d9174 100644
  static const struct file_operations jiffies_ops = {
  	.owner = THIS_MODULE,
  	.open = jiffies_open,
-@@ -30,13 +118,27 @@ static const struct file_operations jiffies_ops = {
+@@ -30,13 +116,27 @@ static const struct file_operations jiffies_ops = {
  	.release = single_release
  };
  
