@@ -44,7 +44,7 @@ github.
 Instructions to apply patches:
 
 $ git am <patch_src>/0001-Task-1.patch # work is based on task 1
-$ git am <patch_src>/task-patches/0001-Task-2-kernelcare-jiffies-debugfs-file.patch
+$ git am <patch_src>/0001-Task-2-kernelcare-jiffies-debugfs-file.patch
 
 Proof that it works:
 
@@ -65,8 +65,8 @@ this.
 Instructions to apply patches:
 
 $ git am <patch_src>/0001-Task-1.patch # work is based on task 1
-$ git am <patch_src>/task-patches/0001-Task-2-kernelcare-jiffies-debugfs-file.patch
-$ git am <patch_src>/task-patches/0001-Task-2-kernelcare-data-debugfs-file.patch
+$ git am <patch_src>/0001-Task-2-kernelcare-jiffies-debugfs-file.patch
+$ git am <patch_src>/0001-Task-2-kernelcare-data-debugfs-file.patch
 
 Test:
 
@@ -96,7 +96,7 @@ All read/write operations receive a unique 32-bit id, and every log entry
 comes with this id for purpose of easier identification. The highest 16
 bits in read ids and lowest 16 bits in write ids are always zero. This is
 needed for easier distinction between two types of operations. Looking at
-task-patches/data-log file, we see that write operations are not
+tasks/data-log file, we see that write operations are not
 interleaved with any other operations. Reads, in turn, are interleaved
 with other reads, but not with writes.
 
