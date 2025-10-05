@@ -30,7 +30,7 @@ done from the system compiled using that commit.
 
 Instructions to apply patches:
 
-$ git am <patch_src>/0001-Task-1.patch
+$ git am tasks/0001-Task-1.patch
 
 Proof that work is done on real hardware and the latest Linux kernel is
 used: https://intermediate-node.net/unsorted/on-real-machine.mp4
@@ -42,8 +42,8 @@ github.
 
 Instructions to apply patches:
 
-$ git am <patch_src>/0001-Task-1.patch # work is based on task 1
-$ git am <patch_src>/0001-Task-2-kernelcare-jiffies-debugfs-file.patch
+$ git am tasks/0001-Task-1.patch # work is based on task 1
+$ git am tasks/0001-Task-2-kernelcare-jiffies-debugfs-file.patch
 
 Proof that it works:
 
@@ -63,9 +63,9 @@ this.
 
 Instructions to apply patches:
 
-$ git am <patch_src>/0001-Task-1.patch # work is based on task 1
-$ git am <patch_src>/0001-Task-2-kernelcare-jiffies-debugfs-file.patch
-$ git am <patch_src>/0001-Task-2-kernelcare-data-debugfs-file.patch
+$ git am tasks/0001-Task-1.patch # work is based on task 1
+$ git am tasks/0001-Task-2-kernelcare-jiffies-debugfs-file.patch
+$ git am tasks/0001-Task-2-kernelcare-data-debugfs-file.patch
 
 Test:
 
@@ -103,8 +103,8 @@ with other reads, but not with writes.
 
 Instructions to apply patches:
 
-$ git am <patch_src>/0001-Task-1.patch # work is based on task 1
-$ git am <patch_src>/0001-Task-3.patch
+$ git am tasks/0001-Task-1.patch # work is based on task 1
+$ git am tasks/0001-Task-3.patch
 
 Notes:
 
