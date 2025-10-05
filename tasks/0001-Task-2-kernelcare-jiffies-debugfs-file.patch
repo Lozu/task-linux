@@ -1,4 +1,4 @@
-From 849290246a7813b6d265d8e9d36b4b0e87b53cd8 Mon Sep 17 00:00:00 2001
+From 750a0da0b5e09bf4ca57425513ad8d3f4002e3ba Mon Sep 17 00:00:00 2001
 From: Vladimir Azarov <vladimirazmich@gmail.com>
 Date: Fri, 3 Oct 2025 00:26:24 +0200
 Subject: [PATCH] Task 2: /kernelcare/jiffies debugfs file

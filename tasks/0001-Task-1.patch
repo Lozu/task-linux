@@ -1,4 +1,4 @@
-From 8aa0d5e41bc914c23aed125bf1fee5dc6a936f48 Mon Sep 17 00:00:00 2001
+From 42c67210dcd2c800a2a5fc1c5299ab2575fd7c8f Mon Sep 17 00:00:00 2001
 From: Vladimir Azarov <vladimirazmich@gmail.com>
 Date: Thu, 2 Oct 2025 21:53:01 +0200
 Subject: [PATCH] Task 1
@@ -11,12 +11,30 @@ initialization. It can also be successfully unloaded.
 
 Signed-off-by: Vladimir Azarov <vladimirazmich@gmail.com>
 ---
+ MAINTAINERS           |  6 ++++++
  samples/task/Makefile | 20 ++++++++++++++++++++
  samples/task/task.c   | 23 +++++++++++++++++++++++
- 2 files changed, 43 insertions(+)
+ 3 files changed, 49 insertions(+)
  create mode 100644 samples/task/Makefile
  create mode 100644 samples/task/task.c
 
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 0554bf05b426..476b379f63ff 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -22506,6 +22506,12 @@ S:	Supported
+ F:	Documentation/admin-guide/LSM/SafeSetID.rst
+ F:	security/safesetid/
+ 
++SAMPLE TASK
++M:	Vladimir Azarov <vladimirazmich@gmail.com>
++S:	Maintained
++T:	git https://github.com/Lozu/task-linux
++F:	sample/task/
++
+ SAMSUNG AUDIO (ASoC) DRIVERS
+ M:	Sylwester Nawrocki <s.nawrocki@samsung.com>
+ L:	linux-sound@vger.kernel.org
 diff --git a/samples/task/Makefile b/samples/task/Makefile
 new file mode 100644
 index 000000000000..2e8f0fa453c2

@@ -8,9 +8,8 @@ created to complete the test task for Kernel Developer internship.
 All assignments had to be submitted as patches. All four patches (task
 2 is partitioned into two parts) are located in main branch,
 /tasks/ directory. They were produced by 'git format-patch', so
-one can apply them using 'git am' command. All patches except for the
-first one pass 'scripts/checkpatch.pl --strict --codespell'. For the
-first patch, checkpatch.pl issues a warning "does MAINTAINERS need updating".
+one can apply them using 'git am' command. All patches pass
+'scripts/checkpatch.pl --strict --codespell'.
 
 Please note that all patches except for task-1 patch depend on other
 patches; thus, most patches have to be applied in a specific order.

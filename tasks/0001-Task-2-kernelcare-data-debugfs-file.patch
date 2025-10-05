@@ -1,4 +1,4 @@
-From 9210dcebff27c723f03ae086d9cd4d1d246bac31 Mon Sep 17 00:00:00 2001
+From 5ae781ebb3a8b58888f2d5b51837ec8813152037 Mon Sep 17 00:00:00 2001
 From: Vladimir Azarov <vladimirazmich@gmail.com>
 Date: Fri, 3 Oct 2025 01:04:00 +0200
 Subject: [PATCH] Task 2: /kernelcare/data debugfs file
